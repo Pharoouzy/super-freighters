@@ -65,6 +65,8 @@ When all this has been done, you then proceed to run the command below for datab
 ````
 $ php artisan migrate --seed
 ````
+Alternatively, you can make use of the Database dump file located at:
+````super-freighters/database/db-dump.sql```` to load the database
 
 Start the application by running the command below:
 
