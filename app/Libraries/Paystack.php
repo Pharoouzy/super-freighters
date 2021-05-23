@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Libraries;
 
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Exception\ClientException;
@@ -9,7 +9,7 @@ use Illuminate\Http\Client\ConnectionException;
 
 /**
  * Class Paystack
- * @package App\Services
+ * @package App\Libraries
  */
 class Paystack {
 
@@ -39,13 +39,12 @@ class Paystack {
     public function initialize($data) {
 
         try {
-
             $response = json_decode($this->http->post(config('paystack.initialize_url'), [
                 'amount' => $data['amount'] * 100,
                 'email' => $data['email'],
                 'currency' => 'NGN',
                 'reference' => $data['transaction_ref'],
-                'callback_url' => config('app.main_url').config('paystack.callback_url'),
+                'callback_url' => route('payment.verify'),
                 'metadata' => [
                     'transaction_ref' => $data['transaction_ref'],
                     'mode' => $this->env,
@@ -71,7 +70,7 @@ class Paystack {
 
         try {
 
-            $response = json_decode($this->http->get($this->verifyUrl . $reference)->getBody(), true);
+            $response = json_decode($this->http->get(config('paystack.verify_url') . $reference)->getBody(), true);
 
             return $response;
 
