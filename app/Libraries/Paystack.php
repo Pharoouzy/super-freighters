@@ -13,8 +13,20 @@ use Illuminate\Http\Client\ConnectionException;
  */
 class Paystack {
 
+    /**
+     * @var string[]
+     */
+    /**
+     * @var \Illuminate\Http\Client\PendingRequest|string[]
+     */
+    /**
+     * @var \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|\Illuminate\Http\Client\PendingRequest|mixed|string[]
+     */
     private $header, $http, $key;
 
+    /**
+     * Paystack constructor.
+     */
     public function __construct() {
 
         $this->env = config('settings.paystack_env') ?? config('paystack.paystack_env');

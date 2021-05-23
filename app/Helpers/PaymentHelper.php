@@ -13,8 +13,15 @@ use App\Models\Transaction;
  */
 trait PaymentHelper {
 
+    /**
+     * @var
+     */
     private $mode, $origin, $destination;
 
+    /**
+     * @param $request
+     * @return \stdClass
+     */
     public function getPaymentData($request){
 
         $data = new \stdClass();
@@ -32,10 +39,18 @@ trait PaymentHelper {
         return $data;
     }
 
+    /**
+     * @param $amount
+     * @return float|int
+     */
     public function calculateCustomsFee($amount){
         return ((double)config('settings.customs_tax') / 100) * $amount;
     }
 
+    /**
+     * @param $request
+     * @return float|int
+     */
     public function calculateSubtotal($request){
 
         $this->mode = Mode::find($request->mode);
@@ -58,6 +73,9 @@ trait PaymentHelper {
         return $reference;
     }
 
+    /**
+     * @return string
+     */
     public function generateOrderNumber(){
         $orderNumber = 'SFT-'.strtoupper(substr(md5(substr(hexdec(uniqid()), -6)), -6));
 

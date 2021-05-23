@@ -8,5 +8,9 @@
 
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ asset('app/css/demo.css') }}" rel="stylesheet" />
-
+        <style>
+            .text {
+                text-transform: none !important;"
+            }
+        </style>
         @yield('css')
