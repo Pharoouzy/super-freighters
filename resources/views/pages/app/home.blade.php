@@ -15,7 +15,7 @@
                             <h3 class="wizard-title">
                                 Place your order
                             </h3>
-                            <h5>This information will let us know more about your place.</h5>
+                            <h5>This information will let us know more about your package and help you with the estimates.</h5>
                         </div>
                         <div class="wizard-navigation">
                             <ul>
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="item-info">
-                                <h4 class="info-text">What type of location do you have? </h4>
+                                <h4 class="info-text">Tell us about the Item and its weight </h4>
                                 <div class="row">
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group label-floating @error('item_name') has-error @enderror">
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="origin">
-                                <h4 class="info-text">Tell us more about facilities. </h4>
+                                <h4 class="info-text">Tell us about the location and how you want your item to be shipped. </h4>
                                 <div class="row">
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group label-floating @error('origin') has-error @enderror">

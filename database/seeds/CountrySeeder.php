@@ -7,11 +7,6 @@ class CountrySeeder extends Seeder {
 
     private $countries = [
         [
-            'code' => 'NG',
-            'name' => 'Nigeria',
-            'flat_rate' => 2000,
-        ],
-        [
             'code' => 'US',
             'name' => 'United States of America',
             'flat_rate' => 1500,
