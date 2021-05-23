@@ -34,7 +34,7 @@
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group label-floating @error('first_name') has-error @enderror">
                                             <label class="control-label">First Name</label>
-                                            <input type="text" name="first_name" class="form-control @error('first_name') error @enderror" value="{{ old('first_name', 'Umar-Farouq') }}" required autocomplete="first_name">
+                                            <input type="text" name="first_name" class="form-control @error('first_name') error @enderror" value="{{ old('first_name') }}" required autocomplete="first_name">
                                             @error('first_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <small class="text-danger">{{ $message }}</small>
@@ -45,7 +45,7 @@
                                     <div class="col-sm-5">
                                         <div class="form-group label-floating @error('last_name') has-error @enderror">
                                             <label class="control-label">Last Name</label>
-                                            <input type="text" name="last_name" class="form-control @error('last_name') error @enderror" value="{{ old('last_name', 'Yusuf') }}" required autocomplete="last_name">
+                                            <input type="text" name="last_name" class="form-control @error('last_name') error @enderror" value="{{ old('last_name') }}" required autocomplete="last_name">
                                             @error('last_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <small class="text-danger">{{ $message }}</small>
@@ -56,7 +56,7 @@
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group label-floating @error('email') has-error @enderror">
                                             <label class="control-label">Email Address</label>
-                                            <input type="email" name="email" class="form-control @error('email') error @enderror" value="{{ old('email', 'yusufumarfarouq@gmail.com') }}" required autocomplete="email">
+                                            <input type="email" name="email" class="form-control @error('email') error @enderror" value="{{ old('email') }}" required autocomplete="email">
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <small class="text-danger">{{ $message }}</small>
@@ -67,7 +67,7 @@
                                     <div class="col-sm-5">
                                         <div class="form-group label-floating @error('phone_number') has-error @enderror">
                                             <label class="control-label">Phone Number</label>
-                                            <input type="text" name="phone_number" class="form-control @error('phone_number') error @enderror" value="{{ old('phone_number', '08078780858') }}" required autocomplete="phone_number">
+                                            <input type="text" name="phone_number" class="form-control @error('phone_number') error @enderror" value="{{ old('phone_number') }}" required autocomplete="phone_number">
                                             @error('phone_number')
                                             <span class="invalid-feedback" role="alert">
                                                 <small class="text-danger">{{ $message }}</small>
@@ -83,7 +83,7 @@
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group label-floating @error('item_name') has-error @enderror">
                                             <label class="control-label">Item Name</label>
-                                            <input type="text" name="item_name" class="form-control @error('item_name') error @enderror" value="{{ old('item_name', 'Cars') }}" required autocomplete="item_name">
+                                            <input type="text" name="item_name" class="form-control @error('item_name') error @enderror" value="{{ old('item_name') }}" required autocomplete="item_name">
                                             @error('item_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <small class="text-danger">{{ $message }}</small>
@@ -94,7 +94,7 @@
                                     <div class="col-sm-5">
                                         <div class="form-group label-floating @error('weight') has-error @enderror">
                                             <label class="control-label">Weight (KG)</label>
-                                            <input  type="number" step="any" name="weight" class="form-control @error('weight') error @enderror" value="{{ old('weight', '25') }}" required autocomplete="weight">
+                                            <input  type="number" step="any" name="weight" class="form-control @error('weight') error @enderror" value="{{ old('weight') }}" required autocomplete="weight">
                                             @error('weight')
                                             <span class="invalid-feedback" role="alert">
                                                 <small class="text-danger">{{ $message }}</small>
