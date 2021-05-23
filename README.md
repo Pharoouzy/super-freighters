@@ -1,61 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+### APP Setup
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+#### Introduction
+This APP can be used to get estimate of an order to be placed and can as well be used to place and make payment for an order to ship items.
+This APP is available for testing via this link [https://super-freighters-app.herokuapp.com](https://super-freighters-app.herokuapp.com)
 
-## About Laravel
+#### Cloning project
+Use the git command below to clone this project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+````
+$ cd ~
+$ git clone git@github.com:Pharoouzy/super-freighters.git
+````
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Quick Start
+To load in all php dependencies
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+````
+$ cd super-freighters
+$ composer install
+````
 
-## Learning Laravel
+Copy the .env.example file to .env and update the following accordingly
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+````
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=XXX
+DB_USERNAME=XXX
+DB_PASSWORD=XXX
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+MAIL_MAILER=XXXXXXXX
+MAIL_HOST=XXXXXXXX
+MAIL_PORT=XXXXXXXX
+MAIL_USERNAME=XXXXXXXX
+MAIL_PASSWORD=XXXXXXXX
+MAIL_ENCRYPTION=XXXXXXXX
+MAIL_FROM_ADDRESS=XXXXXXXX
+MAIL_FROM_NAME=XXXXXXXX
+````
 
-## Laravel Sponsors
+---
+Replace the Xs with your actual value in the .env file.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+---
+Update your Paystack API Credentials in the .env file as shown below
+````
+PAYSTACK_ENV=XXXXXXXX
+PAYSTACK_INITIALIZE_URL=XXXXXXXX
+PAYSTACK_VERIFY_URL=XXXXXXXX
+PAYSTACK_TEST_SECRET_KEY=XXXXXXXX
+PAYSTACK_TEST_PUBLIC_KEY=XXXXXXXX
+PAYSTACK_LIVE_SECRET_KEY=XXXXXXXX
+PAYSTACK_LIVE_PUBLIC_KEY=XXXXXXXX
+````
 
-### Premium Partners
+Proceed to generating you unique application key with the following command
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+````
+$ php artisan key:generate
+````
 
-## Contributing
+When all this has been done, you then proceed to run the command below for database migration and seed
+````
+$ php artisan migrate --seed
+````
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Start the application by running the command below:
 
-## Code of Conduct
+````
+$ php artisan serve
+````
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Use the command below to run unit test:
 
-## Security Vulnerabilities
+````
+$ php artisan test
+````
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Miscellaneous
+There is also a backoffice UI for managing Countries, Modes, APP Settings (For setting up the payment environment and also the Customs Tax value), and Orders.
 
-## License
+- #### Countries page can be accessed here [https://super-freighters-app.herokuapp.com/countries](https://super-freighters-app.herokuapp.com/countries)
+  
+- #### Mode of Transport page can be accessed here [https://super-freighters-app.herokuapp.com/modes](https://super-freighters-app.herokuapp.com/modes)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- #### APP Settings page can be accessed here [https://super-freighters-app.herokuapp.com/settings](https://super-freighters-app.herokuapp.com/settings)
+
+- #### Orders page can be accessed here [https://super-freighters-app.herokuapp.com/orders](https://super-freighters-app.herokuapp.com/orders)
