@@ -4,8 +4,6 @@ return [
 
     'env' => env('PAYSTACK_ENV', 'live'),
 
-    'callback_url' => env('PAYSTACK_CALLBACK_URL', '/transaction/verify'),
-
     'initialize_url' => env('PAYSTACK_INITIALIZE_URL', 'https://api.paystack.co/transaction/initialize'),
 
     'verify_url' => env('PAYSTACK_VERIFY_URL', 'https://api.paystack.co/transaction/verify/'),
