@@ -116,7 +116,7 @@
                                 <tr>
                                     <td class="emptyrow">
                                         <a href="{{ url()->previous() }}"
-                                           class="btn btn-fill btn-danger btn-wd btn-block">Back</a>
+                                           class="btn btn-fill btn-danger btn-wd btn-block">Go Back</a>
                                     </td>
                                     <td class="emptyrow text-right">
                                         <button type="submit" form="process" class="btn btn-fill btn-primary btn-wd btn-block">Proceed to Make Payment</button>
