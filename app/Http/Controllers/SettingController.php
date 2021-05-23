@@ -20,8 +20,8 @@ class SettingController extends Controller
         foreach ($keys as $key => $value) {
             Setting::set($key, $value);
         }
-        session()->flash('success', ['Settings updated successfully.']);
+        session()->flash('success', ['Settings successfully updated']);
 
-        return redirect()->route('settings.index');
+        return redirect()->back();
     }
 }

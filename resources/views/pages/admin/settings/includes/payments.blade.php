@@ -18,7 +18,8 @@
                         class="form-control @error('customs_tax') is-invalid @enderror"
                         name="customs_tax"
                         id="customs_tax"
-                        type="number"
+                         type="number"
+                        step="any"
                         required
                         placeholder="Customs Tax"
                         value="{{ config('settings.customs_tax') }}"

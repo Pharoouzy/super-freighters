@@ -34,6 +34,19 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @var array
+     */
+    protected $appends = ['full_name'];
+
+    /**
+     * @return mixed|string
+     */
+    public function getFullNameAttribute() {
+
+        return trim($this->last_name . ' ' . $this->first_name);
+    }
+
     public function orders() {
         return $this->hasMany(Order::class);
     }

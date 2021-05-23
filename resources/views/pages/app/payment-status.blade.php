@@ -9,6 +9,7 @@
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="purple" id="wizard">
                     <div class="wizard-header">
+                        @include('partials.app._notification')
                         <h3 class="wizard-title">
                             Payment Successful
                         </h3>

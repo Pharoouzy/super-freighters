@@ -2,84 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Mode;
-use Illuminate\Http\Request;
+use App\Models\Mode;
+use App\Http\Requests\ModeRequest;
 
-class ModeController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class ModeController extends Controller {
+
+    public function index() {
+        $modes = Mode::orderBy('name')->get();
+
+        return view('pages.admin.modes.index', compact('modes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+   public function store(ModeRequest $request) {
+
+        Mode::create($request->only(['name', 'base_fare', 'fare_per_kg', 'expected_arrival_day']));
+
+        session()->flash('success', ['Mode of Transport successfully created']);
+
+       return redirect()->back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+    public function update(ModeRequest $request, Mode $mode) {
+
+        $mode->update($request->only(['name', 'base_fare', 'fare_per_kg', 'expected_arrival_day']));
+
+        session()->flash('success', ['Mode of Transport successfully updated']);
+
+        return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Mode  $mode
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Mode $mode)
-    {
-        //
-    }
+    public function destroy(Mode $mode) {
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Mode  $mode
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Mode $mode)
-    {
-        //
-    }
+        $mode->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mode  $mode
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Mode $mode)
-    {
-        //
-    }
+        session()->flash('success', ['Mode of Transport successfully deleted']);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Mode  $mode
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Mode $mode)
-    {
-        //
+        return redirect()->back();
     }
 }

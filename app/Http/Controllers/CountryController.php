@@ -2,84 +2,63 @@
 
 namespace App\Http\Controllers;
 
-use App\Country;
-use Illuminate\Http\Request;
+use App\Models\Country;
+use App\Http\Requests\CountryRequest;
 
-class CountryController extends Controller
-{
+/**
+ * Class CountryController
+ * @package App\Http\Controllers
+ */
+class CountryController extends Controller {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
-    {
-        //
+    public function index() {
+
+        $countries = Country::orderBy('name')->get();
+
+        return view('pages.admin.countries.index', compact('countries'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param CountryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
-    {
-        //
+    public function store(CountryRequest $request) {
+
+        Country::create($request->only(['name', 'code', 'flat_rate']));
+
+        session()->flash('success', ['Country successfully created']);
+
+        return redirect()->back();
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CountryRequest $request
+     * @param Country $country
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
-        //
+    public function update(CountryRequest $request, Country $country) {
+
+        $country->update($request->only(['name', 'code', 'flat_rate']));
+
+        session()->flash('success', ['Country successfully updated']);
+
+        return redirect()->back();
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Country  $country
-     * @return \Illuminate\Http\Response
+     * @param Country $country
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function show(Country $country)
-    {
-        //
-    }
+    public function destroy(Country $country) {
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Country $country)
-    {
-        //
-    }
+        $country->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Country $country)
-    {
-        //
-    }
+        session()->flash('success', ['Country successfully deleted']);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Country  $country
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Country $country)
-    {
-        //
+        return redirect()->back();
     }
 }

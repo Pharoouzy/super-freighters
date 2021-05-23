@@ -9,6 +9,7 @@
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="purple" id="wizard">
                     <div class="wizard-header">
+                        @include('partials.app._notification')
                         <h3 class="wizard-title">
                             Order Summary
                         </h3>
@@ -28,32 +29,32 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>Samsung Galaxy S5 (4KG)</td>
-                                    <td class="text-center">United Kingdom (UK)</td>
-                                    <td class="text-center">United States (US)</td>
-                                    <td class="text-center">Air</td>
-                                    <td class="text-right">$900</td>
+                                    <td>{{ $summary->item->item_name }} ({{ $summary->item->weight }}KG)</td>
+                                    <td class="text-center">{{ $summary->origin->name }} ({{ $summary->origin->code }})</td>
+                                    <td class="text-center">{{ $summary->destination->name }} ({{ $summary->destination->code }})</td>
+                                    <td class="text-center">{{ $summary->mode->name }}</td>
+                                    <td class="text-right">{{ config('settings.currency_symbol') }}{{ number_format($summary->sub_total) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow"></td>
                                     <td class="highrow text-center"><strong>Subtotal</strong></td>
-                                    <td class="highrow text-right">$958.00</td>
+                                    <td class="highrow text-right">{{ config('settings.currency_symbol') }}{{ number_format($summary->sub_total) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"><strong>Custom Fee</strong></td>
-                                    <td class="emptyrow text-right">$20</td>
+                                    <td class="emptyrow text-right">{{ config('settings.currency_symbol') }}{{ number_format($summary->customs_fee) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"><strong>Total</strong></td>
-                                    <td class="emptyrow text-right">$978.00</td>
+                                    <td class="emptyrow text-right">{{ config('settings.currency_symbol') }}{{ number_format($summary->total) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="emptyrow">
@@ -64,8 +65,10 @@
                                     <td class="emptyrow"></td>
                                     <td class="emptyrow text-center"></td>
                                     <td class="emptyrow text-right">
-                                        <a href="{{ route('payment.verify') }}"
-                                           class="btn btn-fill btn-primary btn-wd btn-block">Pay</a>
+                                        <button type="submit" form="process" class="btn btn-fill btn-primary btn-wd btn-block">Pay</button>
+                                        <form id="process" action="{{ route('order.process') }}" method="POST">
+                                            @csrf
+                                        </form>
                                     </td>
                                 </tr>
                                 </tbody>

@@ -13,7 +13,7 @@ class ModeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class ModeRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
+            'name' => 'required|string|unique:modes,name',
             'base_fare' => 'required|numeric|gt:0',
             'fare_per_kg' => 'required|numeric|gt:0',
             'expected_arrival_day' => 'sometimes|integer',

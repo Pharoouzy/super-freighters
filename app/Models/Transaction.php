@@ -22,7 +22,17 @@ class Transaction extends Model {
      */
     protected $hidden = ['response_full'];
 
+    public $appends = ['status_name'];
+
+    public function getStatusNameAttribute(){
+        return config('constants.payment_statuses')[$this->status];
+    }
+
     public function order(){
         return $this->belongsTo(Order::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

@@ -18,6 +18,22 @@ data-scroll-to-active="true"
         data-original-title="General"
       ></i>
     </li>
+    <li class="nav-item @yield('countries')">
+        <a href="{{ route('countries.index') }}"
+          ><i class="feather icon-flag"></i
+          ><span class="menu-title" data-i18n="Countries"
+            >Countries</span
+          ></a
+        >
+    </li>
+    <li class="nav-item @yield('modes')">
+        <a href="{{ route('modes.index') }}"
+          ><i class="feather icon-truck"></i
+          ><span class="menu-title" data-i18n="Modes of Transportation"
+            >Modes of Transport</span
+          ></a
+        >
+    </li>
     <li class="nav-item @yield('orders')">
         <a href="{{ route('orders.index') }}"
           ><i class="feather icon-shopping-cart"></i

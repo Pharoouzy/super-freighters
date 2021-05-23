@@ -2,84 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Helpers\PaymentHelper;
+use App\Handler\PaymentHandler;
+use App\Http\Requests\OrderRequest;
 
-class OrderController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+class OrderController extends Controller {
+
+    use PaymentHelper;
+
+    public function index() {
+        $orders = Order::orderBy('id', 'desc')->get();
+        $statuses = config('constants.order_statuses');
+        return view('pages.admin.orders.index', compact('orders', 'statuses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function postSummary(OrderRequest $request) {
+
+        $summary = $this->getPaymentData($request);
+
+        $request->session()->put('summary', $summary);
+
+        return redirect()->route('summary.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function summary(Request $request) {
+
+        if($request->session()->has('summary')) {
+            $summary = $request->session()->get('summary');
+
+            return view('pages.app.summary', compact('summary'));
+        } else {
+            session()->flash('error', ['Unable to fetch summary, please try again later']);
+
+            return redirect()->route('home');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        //
+    public function process(Request $request) {
+        $summary = $request->session()->get('summary');
+        $data = new Request($summary->request);
+
+        return (new PaymentHandler())->pay($data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
+    public function show(Order $order) {
+        $statuses = config('constants.order_statuses');
+        return view('pages.admin.orders.show', compact('order', 'statuses'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
+    public function update(Request $request, Order $order) {
+        $order->update(['status' => $request->status]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
+        session()->flash('success', ['Order successfully updated']);
+
+        return redirect()->back();
     }
 }

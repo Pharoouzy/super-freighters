@@ -24,9 +24,9 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('destination');
             $table->unsignedBigInteger('mode');
             $table->decimal('sub_total', 20, 2)->default(0.00);
-            $table->decimal('custom_fee', 20, 2)->default(0.00);
+            $table->decimal('customs_fee', 20, 2)->default(0.00);
             $table->longText('note')->nullable();
-            $table->string('status')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();

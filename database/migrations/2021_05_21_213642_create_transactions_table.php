@@ -20,10 +20,10 @@ class CreateTransactionsTable extends Migration
             $table->decimal('amount', 20, 2);
             $table->string('authorization_url')->nullable();
             $table->string('access_code')->nullable();
-            $table->string('response_code')->nullable()->comment('00 = Successful, 11 = Not successful');
-            $table->longText('response_description')->nullable()->comment('Successful Transaction, Pending Transaction, Failed Transaction');
-            $table->string('status')->default(0)->comment('0 = Failed 1 = Successful 2 = Pending');
-            $table->json('response_full')->nullable();
+            $table->string('response_code')->default('11')->comment('00 = Successful, 11 = Not successful');
+            $table->longText('response_description')->default('Pending Transaction')->comment('Successful Transaction, Pending Transaction, Failed Transaction');
+            $table->tinyInteger('status')->default(0)->comment('0 = Failed 1 = Successful 2 = Pending');
+            $table->json('response_full')->default('{}');
             $table->timestamps();
             $table->softDeletes();
 

@@ -13,16 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.app.home');
-})->name('home');
+Route::get('/', 'PageController@index')->name('home');
 
-Route::get('/summary', function () {
-    return view('pages.app.summary');
-})->name('summary');
+Route::get('/summary', 'OrderController@summary')->name('summary.index');
+Route::post('/summary', 'OrderController@postSummary')->name('summary.post');
+Route::post('/order/process', 'OrderController@process')->name('order.process');
 
-Route::get('/payment/verify', function () {
-    return view('pages.app.payment-status');
-})->name('payment.verify');
+Route::get('/payment/status', 'PaymentController@status')->name('payment.status');
+
+Route::get('/payment/verify', 'PaymentController@verify')->name('payment.verify');
 
 require 'admin.php';

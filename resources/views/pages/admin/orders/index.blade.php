@@ -48,17 +48,16 @@
                             <p class="card-text">
 
                             </p>
-                            <table class="table table-striped table-bordered zero-configuration display no-wrap">
+                            <table class="table table-striped table-bordered zero-configuration display no-wrap table-responsive">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Booking Number</th>
+                                        <th>Order Number</th>
                                         <th>Customer Name</th>
-                                        <th>No.of Clients</th>
-                                        <th>Amount ({{ config('settings.currency_symbol') }})</th>
-                                        <th>Platform Fee ({{ config('settings.customs_tax') }}%)</th>
-                                        <th>Status</th>
-                                        <th>Date Booked</th>
+                                        <th>Item Name</th>
+                                        <th>Total Amount ({{ config('settings.currency_symbol') }})</th>
+                                        <th>Arrival Date</th>
+                                        <th>Date Ordered</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -66,66 +65,70 @@
                                     @forelse($orders as $serial => $order)
                                     <tr>
                                         <td>{{ ++$serial }}</td>
-                                        <td>{{ $order->booking_number }}</td>
-                                        <td>{{ $order->user->full_name }}</td>
-                                        <td>{{ number_format($order->client_count) }}</td>
-                                        @if($role !== 'Admin')
-                                        <td>{{ number_format($order->grand_total - $order->transaction->platform_fee) }}</td>
-                                        @else
-                                        <td>{{ number_format($order->grand_total) }}</td>
-                                        @endif
-                                        @if($role !== 'Admin')
-                                        <td>{{ number_format($order->transaction->platform_fee) }}</td>
-                                        @endif
-                                        <td class="sm text-sm">
-                                            @if($order->status == 'completed')
-                                            <span class="badge badge-small badge-success"><small>{{ ucwords($order->status) }}</small></span>
-                                            @elseif($order->status == 'declined')
-                                            <span class="badge badge-small badge-danger"><small>{{ ucwords($order->status) }}</small></span>
-                                            @elseif($order->status == 'processing')
-                                            <span class="badge badge-small badge-warning"><small>{{ ucwords($order->status) }}</small></span>
-                                            @elseif($order->status == 'pending')
-                                            <span class="badge badge-small badge-secondary"><small>{{ ucwords($order->status) }}</small></span>
+                                        <td>
+                                            {{ $order->order_number }}
+                                            <br>
+                                            @if($order->status == 2)
+                                                <span class="badge badge-small badge-success"><small>{{ ucwords($order->status_name) }}</small></span>
+                                            @elseif($order->status == 3)
+                                                <span class="badge badge-small badge-danger"><small>{{ ucwords($order->status_name) }}</small></span>
+                                            @elseif($order->status == 1)
+                                                <span class="badge badge-small badge-warning"><small>{{ ucwords($order->status_name) }}</small></span>
                                             @else
-                                            <span class="badge badge-small badge-secondary"><small>{{ ucwords($order->status) }}</small></span>
+                                                <span class="badge badge-small badge-secondary"><small>{{ ucwords($order->status_name) }}</small></span>
                                             @endif
                                         </td>
+                                        <td>{{ $order->user->full_name }}</td>
+                                        <td>{{ $order->item_name }}</td>
+                                        <td>{{ number_format($order->total, 2) }}</td>
+                                        <td>{{ $order->expected_arrival_date }}</td>
                                         <td>{{ $order->date_ordered }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:;" data-toggle="modal" data-target="#edit{{ $order->id }}"><i class="fa fa-pencil fa-sm text-success"></i></a>
-                                            <div class="modal fade text-left" id="edit{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
-                                                <form action="{{ route('admin.bookings.update', encrypt($order->id)) }}" method="POST" autocomplete="off">
+                                            {{--<a href="javascript:;" data-toggle="modal"
+                                                data-target="#edit{{ $order->id }}"><i
+                                                class="fa fa-pencil fa-sm text-success"></i></a>
+                                            <div class="modal fade text-left" id="edit{{ $order->id }}" tabindex="-1"
+                                                 role="dialog" aria-labelledby="myModalLabel35" aria-hidden="true">
+                                                <form action="{{ route('orders.update', $order->id) }}" method="POST"
+                                                      autocomplete="off">
                                                     @csrf
                                                     @method('PUT')
-                                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                                    <div class="modal-dialog modal-dialog-centered modal-md"
+                                                         role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="uploadLabel">Update Info</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <h5 class="modal-title" id="uploadLabel">Update
+                                                                    Info</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
                                                                     <label for="status"></label>
-                                                                    <select class="form-control" name="status" id="status">
+                                                                    <select class="form-control" name="status"
+                                                                            id="status">
                                                                         @foreach ($statuses as $id => $status)
                                                                         <option {{ ($order->status  == $status) ? 'selected' : ''}} value="{{ $status }}">{{ ucfirst($status) }}</option>
                                                                         @endforeach
                                                                     </select>
-                                                                    {{--<label for="status{{ $id }}" class="mr-5"><input type="radio" class="form-control mr-5" name="status" {{ ($order->status  == $status) ? 'checked' : ''}} value="{{ $status }}" id="status{{ $id }}">{{ ucfirst($status) }}</label>--}}
-                                                                </div>
+                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                <button type="submit" class="btn btn-primary">Update Status</button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary">Update
+                                                                    Status
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </form>
-                                            </div>
+                                            </div>--}}
                                             &nbsp;
-                                            <a href="{{ route('admin.bookings.show', $order->booking_number) }}"><i class="fa fa-eye fa-sm text-primary"></i></a>
+                                            <a href="{{ route('orders.show', $order->id) }}"><i class="fa fa-eye fa-sm text-primary"></i></a>
                                         </td>
                                     </tr>
                                     @empty
@@ -144,9 +147,4 @@
         </div>
     </section>
 </div>
-@endsection
-
-@section('js')
-<script src="{{ asset('assets/vendors/js/tables/datatable/datatables.min.js') }}"></script>
-<script src="{{ asset('assets/js/scripts/tables/datatables/datatable-basic.min.js') }}"></script>
 @endsection

@@ -13,7 +13,7 @@ class CountryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class CountryRequest extends FormRequest
     {
         return [
             'code' => 'required|string|min:2|max:2',
-            'name' => 'required|string',
+            'name' => 'required|string|unique:countries,name',
             'flat_rate' => 'required|numeric|gt:0',
         ];
     }
