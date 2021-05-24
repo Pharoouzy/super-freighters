@@ -1,41 +1,15 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') – MMAKYEWA</title>
-    <meta name="description" content="@yield('description', 'Everything you need.')">
-    <meta name="keywords" content="makup,website">
-    <meta name="author" content="Pharoouzy">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>@yield('title') –Super Freighters</title>
 
-    <!-- Twitter meta-->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:site" content="@mmakyewa">
-    <meta property="twitter:creator" content="@mmakyewa">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
-    <meta name="og:title" content="MMAKYEWA | Everything You Need" />
-    <meta name="og:type" content="website" />
-    <meta name="og:url" content="https://mmakyewa.com" />
-    <meta name="og:image" content="{{ asset('app/images/logo-w.png') }}" />
-    <meta name="og:site_name" content="{{ config('settings.site_name') }}" />
-    <meta name="og:description" content="@yield('description', 'For best price, best quality makeup and accurate time of delivery choose MMAKYEWA.COM, we are out to giving you the best.')" />
-
-    <meta name="og:email" content="{{ config('settings.default_email_address') }}" />
-    <meta name="og:phone_number" content="{{ config('settings.default_phone_number') }}" />
-    <meta name="og:fax_number" content="{{ config('settings.default_phone_number') }}" />
-
-    <meta name="og:street-address" content="{{ config('settings.default_address') }}" />
-    <meta name="og:locality" content="Nigeria" />
-    <meta name="og:region" content="Lagos State" />
-    <meta name="og:postal-code" content="101245" />
-    <meta name="og:country-name" content="Nigeria" />
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="msapplication-tap-highlight" content="no">
-    <!-- Fav Icon -->
-    <link rel="apple-touch-icon" sizes="120x120" href="{{asset('assets/images/ico/apple-icon-120.png')}}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/ico/favicon-32.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('app/images/apple-icon.png')}}" />
+    <link rel="icon" type="image/png" href="{{asset('app/images/favicon.png')}}" />
     <meta name="theme-color" content="#FFFFFF">
 
     @include('partials.admin._css')
